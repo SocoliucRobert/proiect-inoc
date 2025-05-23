@@ -1,0 +1,3 @@
+py -3.10 -m venv ebook_env
+ebook_env\Scripts\activate
+pip install -r requirements.txt

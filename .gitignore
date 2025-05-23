@@ -1,0 +1,12 @@
+# Mediu virtual
+ebook_env/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Fișiere PDF (cartea)
+*.pdf
+
+# Fișiere sensibile
+.env
