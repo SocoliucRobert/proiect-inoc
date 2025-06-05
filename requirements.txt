@@ -1,4 +1,5 @@
-mediapipe
 opencv-python
-PyMuPDF
 Pillow
+PyMuPDF
+mediapipe
+numpy

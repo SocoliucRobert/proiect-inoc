@@ -107,7 +107,8 @@ def is_thumbs_down(hand_landmarks):
 def run_pdf_viewer(pages):
     mp_pose = mp.solutions.pose
     mp_hands = mp.solutions.hands
-   
+    mp_drawing = mp.solutions.drawing_utils
+
     pose = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
     hands = mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7)
 
@@ -155,7 +156,9 @@ def run_pdf_viewer(pages):
             pose_lm = result_pose.pose_landmarks.landmark
             hand_lm = hand_landmarks.landmark
 
-            
+            mp_drawing.draw_landmarks(frame, result_pose.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
             hand_tip = hand_lm[mp_hands.HandLandmark.INDEX_FINGER_TIP]
             hand_point = np.array([hand_tip.x, hand_tip.y])
 
@@ -250,7 +253,7 @@ def run_pdf_viewer(pages):
                     candidate_gesture = None
                     candidate_action = None
                     candidate_since = None
-                    last_action = "Like = confirm/dislike = anulare!"
+                    last_action = "Like = confirmare/ dislike = anulare!"
             else:
                 candidate_gesture = None
                 candidate_action = None
@@ -273,7 +276,7 @@ def run_pdf_viewer(pages):
             cv2.putText(frame, f"Gest: {last_action}", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, COLOR_GEST, 2)
         if pending_action:
-            cv2.putText(frame, f"{pending_action} confirma/anuleaza!", (10, 70),
+            cv2.putText(frame, f"{pending_action} confirma sau anuleaza!", (10, 70),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, COLOR_CONFIRM, 2)
         elif candidate_action:
             cv2.putText(frame, f"{candidate_action} - mentine gestul...", (10, 70),
